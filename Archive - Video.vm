@@ -1,0 +1,25 @@
+<#assign aui = taglibLiferayHash["/WEB-INF/tld/aui.tld"] />
+<#assign liferay_portlet = taglibLiferayHash["/WEB-INF/tld/liferay-portlet.tld"] />
+
+<#if entries?has_content>
+    <div class="archive_block publication">
+        <div class="archive_in">
+
+            <#assign videoMimeTypes = propsUtil.getArray("dl.file.entry.preview.video.mime.types") />
+
+            <#list entries as entry>
+                <#if videoMimeTypes?seq_contains(entry.getMimeType()) >
+                    <div data-title="${entry.getTitle()}" class="col-sm-3 archive_item" data-video="${dlUtil.getPreviewURL(entry, entry.getFileVersion(), themeDisplay, '')}">
+
+                        <video class="archive_image" src="${dlUtil.getPreviewURL(entry, entry.getFileVersion(), themeDisplay, '')}" frameborder="0" allowfullscreen=""></video>
+
+                        <span class="archive_date">${entry.createDate?string["dd/MM/yyyy"]}</span>
+
+                        <span class="archive_anons">${entry.getTitle()}</span>
+
+                    </div>
+                </#if>
+            </#list>
+        </div>
+    </div>
+</#if>

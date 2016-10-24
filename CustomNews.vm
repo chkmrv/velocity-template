@@ -1,0 +1,60 @@
+<style>
+.css_main #main_news .news-in div:nth-child(1) {
+    border-left: 0;
+}
+</style>
+
+<div class="main-news" id="main_news" style="display: inline-block;">
+    <div class="H1">
+        Новости
+    </div>
+    <a class="arrow_link" href="/press/archive/news">Все новости</a>
+    <div class="news-in">
+        
+
+#if (!$entries.isEmpty())
+
+    ##iterate assetentry from list
+      #foreach ($curEntry in $entries)
+          #set($renderer = $curEntry.getAssetRenderer() )
+          #set($className = $renderer.getClassName() )
+          #set($date = $dateTool.format("dd/MM/yyyy", $dateTool.toDate( "EEE, dd MMM yyyy hh:mm:ss Z" , $curEntry.getPublishDate())))
+          ##for filter of journal article only
+          #if( $className == "com.liferay.portlet.journal.model.JournalArticle" )
+         
+             ##Create URL for link
+             #set($viewURL = $assetPublisherHelper.getAssetViewURL($renderRequest, $renderResponse, $curEntry))
+             #set( $Article = $renderer.getArticle() )
+             
+             #set( $document = $saxReaderUtil.read($Article.getContent()) )
+                    
+                #set( $rootElement = $document.getRootElement() ) 
+                #foreach( $dynamicElement in $rootElement.elements() )
+                    #if( "Image2791" == $dynamicElement.attributeValue("name") )
+                        #set( $image = $dynamicElement.element("dynamic-content").getText() )
+                        
+                    #end
+                    #if( "ImageSmall2792" == $dynamicElement.attributeValue("name") )
+                        #set( $imageSmall = $dynamicElement.element("dynamic-content").getText() )
+                        
+                    #end
+                    
+                #end
+            
+            #set( $viewURL2 = $renderer.getURLViewInContext($renderRequest, $renderResponse, $viewURL))    
+            
+            <div class="asset-col-3 here news_link">
+                
+                <a class="news_content" href="$viewURL2">
+                    <img src="$imageSmall" class="news_image center" height="200" width="300"/> 
+                    <span class="news_date">$date</span>
+                    <span class="news_anons">$curEntry.getTitle($locale)</span>
+	                <span class="arrowNews" href="$viewURL2"></span>
+                </a>
+            </div>
+             
+         #end
+     #end
+ #end
+</div>
+</div>

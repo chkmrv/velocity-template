@@ -1,0 +1,116 @@
+<#assign aui = taglibLiferayHash["/WEB-INF/tld/aui.tld"] />
+<#assign liferay_portlet = taglibLiferayHash["/WEB-INF/tld/liferay-portlet.tld"] />
+
+<#if entries?has_content>
+	<style>
+		#<@liferay_portlet.namespace />carousel .carousel-item {
+			background-color: #000;
+			height: 250px;
+			overflow: hidden;
+			text-align: center;
+			width: 700px;
+		}
+
+		#<@liferay_portlet.namespace />carousel .carousel-item img {
+			max-height: 250px;
+			max-width: 700px;
+		}
+		.css_main .tab_slider .js-tab {
+		    padding: 15px;
+		    border-top: 0;
+		    padding-top: 0;
+		}
+		.css_main .tab_slider .js-scroll {
+			overflow: hidden;
+		}
+	</style>
+
+    <style type="text/css">
+
+        .scrollCustom {
+        	width: 290px;
+            height: 450px;
+        }
+        .scrollCustom .overview {
+            width: 100%;
+        }
+        .scrollable .viewportScroll {
+		    position: relative;
+		    overflow: hidden;
+		}
+		.scrollable .viewportScroll .overview {
+		  position: absolute;
+		}
+    </style>
+    <!--<p>${entry.getDescription()}</p> -->
+
+<div id="archive" class="fotoVideo-portlet">
+	<div class="archive_block">
+        <div class="multimedia_anons">
+		<div class="H1">Фотогалерея и видеоархив</div>
+		<a class="arrow_link" href="/press/archive/photo">Перейти в раздел</a>
+
+		<div class="slider_box">
+			<div class="tab_slider" id="multianons">
+				<div class="show_list">фото и видео</div>
+				<div class="viewport">
+					<img class="main_img" src="">
+					<video width="600" class="main_video" src="" controls>
+                    	<source class="main_video" src="" type="video/mp4">
+                    	Your browser does not support HTML5 video.
+                    </video>
+				</div>
+				
+				<div class="slide_panel">
+					<div class="txt">${entry.getTitle()}</div>
+				</div>
+				<div class="previews js-showlist js-tabs">
+					<div class="js-tabNav leftPosition">
+						<a class="js-tabLink" href="#photolenta" onclick="event.preventDefault();">Фото</a>
+						<a class="js-tabLink" href="#videolenta" onclick="event.preventDefault();">Видео</a>
+					</div>
+					<div id="photolenta" class="js-tab" style="display: none;">
+						<div class="scroll_box">
+							<div class="js-scroll">
+								<div class="default-skin scrollCustom">
+									<#assign imageMimeTypes = propsUtil.getArray("dl.file.entry.preview.image.mime.types") />
+
+									<#list entries as entry>
+										<#if imageMimeTypes?seq_contains(entry.getMimeType()) >
+											<div data-title="${entry.getTitle()}" class="prew photo" data-src="${dlUtil.getPreviewURL(entry, entry.getFileVersion(), themeDisplay, '')}">
+												<img src="${dlUtil.getPreviewURL(entry, entry.getFileVersion(), themeDisplay, '')}" width="100%" height="100%">
+											</div>
+										</#if>
+									</#list>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div id="videolenta" class="js-tab" style="display: none;">
+						<div class="scroll_box">
+							<div class="js-scroll">
+								<#assign videoMimeTypes = propsUtil.getArray("dl.file.entry.preview.video.mime.types") />
+
+								<#list entries as entry>
+									<#if videoMimeTypes?seq_contains(entry.getMimeType()) >
+										<div data-title="${entry.getTitle()}" class="prew myVideo" data-video="${dlUtil.getPreviewURL(entry, entry.getFileVersion(), themeDisplay, "")}">
+											<video width="100%" height="100%" src="${dlUtil.getPreviewURL(entry, entry.getFileVersion(), themeDisplay, "")}" frameborder="0" allowfullscreen=""></video>
+										</div>
+									
+				                    </#if>
+								</#list>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+	</div>
+</div>
+
+   
+</#if>

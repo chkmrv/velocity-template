@@ -1,0 +1,49 @@
+<div class="main-news" id="main_news">
+    
+    <div class="width_fix">
+       
+
+#if (!$entries.isEmpty())
+
+    ##iterate assetentry from list
+      #foreach ($curEntry in $entries)
+          #set($renderer = $curEntry.getAssetRenderer() )
+          #set($className = $renderer.getClassName() )
+           #set($news-summary =$curEntry.getSummary($locale))
+          #set($date = $dateTool.format("dd/MM/yyyy", $dateTool.toDate( "EEE, dd MMM yyyy hh:mm:ss Z" , $curEntry.getPublishDate())))
+          ##for filter of journal article only
+          #if( $className == "com.liferay.portlet.journal.model.JournalArticle" )
+         
+             ##Create URL for link
+             #set($viewURL = $assetPublisherHelper.getAssetViewURL($renderRequest, $renderResponse, $curEntry))
+             #set( $Article = $renderer.getArticle() )
+             
+             #set( $document = $saxReaderUtil.read($Article.getContent()) )
+                    
+                #set( $rootElement = $document.getRootElement() ) 
+                #foreach( $dynamicElement in $rootElement.elements() )
+                    #if( "Image2791" == $dynamicElement.attributeValue("name") )
+                        #set( $image = $dynamicElement.element("dynamic-content").getText() )
+                        
+                    #end
+                    
+                #end
+            
+            #set( $viewURL2 = $renderer.getURLViewInContext($renderRequest, $renderResponse, $viewURL))    
+            <h1>$curEntry.getTitle($locale)</h1>
+            <div class="main_news main_news_detail">
+                <div class="description">
+                    <div class="soc_block">
+                    </div>
+                    <div class="date">$date</div>
+                    <div class="text MsoNormal">
+                        $news-summary
+                    </div>
+                </div>
+            </div>
+             
+         #end
+     #end
+ #end
+</div>
+</div>

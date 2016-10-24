@@ -1,0 +1,35 @@
+<#assign aui = taglibLiferayHash["/WEB-INF/tld/aui.tld"] />
+<#assign liferay_portlet = taglibLiferayHash["/WEB-INF/tld/liferay-portlet.tld"] />
+
+<#if entries?has_content>
+    <div class="archive_block">
+        <div class="archive_in">
+
+            <#assign imageMimeTypes = propsUtil.getArray("dl.file.entry.preview.image.mime.types") />
+
+            <#list entries as entry>
+                <#if imageMimeTypes?seq_contains(entry.getMimeType()) >
+                    <div data-title="${entry.getTitle()}" class="col-sm-3 archive_item"
+                         data-src="${dlUtil.getPreviewURL(entry, entry.getFileVersion(), themeDisplay, '')}">
+
+                        <img src="${dlUtil.getPreviewURL(entry, entry.getFileVersion(), themeDisplay, '')}"
+                             class="archive_image"/>
+
+                        <span class="archive_date">${entry.createDate?string["dd/MM/yyyy"]}</span>
+                        
+                        <span class="archive_anons">${entry.getTitle()}</span>
+
+                    </div>
+                </#if>
+              
+            </#list>
+        </div>
+    </div>
+
+	<#list entries as curFileEntry>
+		<div>${curFileEntry.folder}
+		${dlUtil.getWebDavURL(themeDisplay,curFileEntry.folder,curFileEntry)}
+		</div>
+	</#list>
+   
+</#if>
