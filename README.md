@@ -22,3 +22,18 @@ List3News	3 новости на странице списка новостей	(
 
 Folder Portlet and Theme
 ------------------
+rrwebRootMainTemplate-theme
+
+rrwebCalendarNews-portlet
+
+rrwebCarousel-portlet
+
+rrwebFooterLogo-portlet
+
+rrwebHeader-portlet
+
+rrwebLifeSituations-portlet
+
+rrwebNav-portlet
+
+rrwebNavSideBar-portlet
