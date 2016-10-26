@@ -19,5 +19,6 @@ CustomNews	3 новости на главной странице	(Assets Publish
 AssetNewsFull	целая новость использует другой шаблон	(Assets Publisher)
 
 List3News	3 новости на странице списка новостей	(Assets Publisher)
-------------------
+
 Folder Portlet and Theme
+------------------
