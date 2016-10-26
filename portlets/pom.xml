@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+      <groupId>ru.atc.rrweb.liferay</groupId>
+      <artifactId>parent</artifactId>
+      <version>1.0</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>portlet-parent</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>rrwebCarousel-portlet</module>
+        <module>rrwebFooterLogo-portlet</module>
+        <module>rrwebThreeNews-portlet</module>
+        <module>rrwebFaqMainPage-portlet</module>
+        <module>rrwebNav-portlet</module>
+        <module>rrwebNavSideBar-portlet</module>
+        <module>rrwebSmartForms-portlet</module>
+        <module>rrwebCalendarNews-portlet</module>
+        <module>rrwebContactMaps-portlet</module>
+        <module>rrwebLifeSituations-portlet</module>
+        <module>rrwebFrequentlyAskedQuestions-portlet</module>
+        <module>rrwebUslug-portlet</module>
+        <module>rrwebFooter-portlet</module>
+        <module>rrwebHeader-portlet</module>
+        <module>rrwebHeaderPlayer-portlet</module>
+        <module>rrwebHeaderEn-portlet</module>
+        <module>rrwebHeader1lvl-portlet</module>
+    </modules>
+
+</project>
