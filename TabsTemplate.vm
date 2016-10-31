@@ -1,0 +1,166 @@
+<style>
+.tabs ul.tab__btn {
+    margin: 0px;
+    padding: 0px;
+}
+.tabs ul.tab__btn li.active a, .tabs ul li.active:hover a{
+    border: 0px;
+    padding: 12px 15px !important;
+    text-decoration:none;
+}
+/*.tabs ul.tab__btn li a{
+    margin: 0px;
+    padding: 0px;
+    cursor: pointer;
+    display: block;
+    float: left;
+    position: relative;
+    padding: 10px 15px;
+    color: #707070;
+    margin-right: 20px;
+}*/
+.tabs ul.tab__btn li a{
+    margin-right: 10px;
+    text-transform: uppercase;
+    background-color: #fafafa;
+    /*border: 1px solid #006fb8;*/
+    padding: 9px 10px !important;
+    margin-bottom: 10px;
+    color: #006fb8;
+    text-decoration:none;
+}
+.tabs ul.tab__btn li a{
+    margin-right: 10px;
+    text-transform: uppercase;
+    background-color: #fafafa;
+    /*border: 1px solid #006fb8;*/
+    padding: 9px 10px !important;
+    color: #006fb8;
+    text-decoration:none;
+}
+.tabs ul.tab__btn li.active a, .tabs ul li.active:hover a {
+    background: #2f6fb7;
+    color: #fff;
+    text-decoration:none;
+
+}
+.tabs ul.tab__btn li.active a, .tabs ul li.active:hover a {
+    border: 0px;
+    padding: 12px 15px !important;
+    text-decoration:none;
+}
+.tabs ul.tab__btn li.active a i {
+    display: block;
+    width: 12px;
+    margin-left: -6px;
+    height: 16px;
+    background: url(https://rosreestr.ru/local/tpl/img/tab.jpg) no-repeat;
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    text-decoration:none;
+}
+
+</style>
+<div class="tabs">  
+
+#if (!$entries.isEmpty())
+
+    ##iterate assetentry from list
+    #set($i =0 )
+                      <ul class="tab__btn" role="tablist" id="tabTab">
+      #foreach ($curEntry in $entries)
+          #set($i=$i+1)
+          #set($renderer = $curEntry.getAssetRenderer() )
+          #set($className = $renderer.getClassName() )
+
+          ##for filter of journal article only
+          #if( $className == "com.liferay.portlet.journal.model.JournalArticle" )
+         
+             ##Create URL for link
+             #set($viewURL = $assetPublisherHelper.getAssetViewURL($renderRequest, $renderResponse, $curEntry))
+             #set( $Article = $renderer.getArticle() )
+             
+            #set( $document = $saxReaderUtil.read($Article.getContent()) )
+                    
+                #set( $rootElement = $document.getRootElement() ) 
+                #foreach( $dynamicElement in $rootElement.elements() )
+                    #if( "Image2791" == $dynamicElement.attributeValue("name") )
+                        #set( $image = $dynamicElement.element("dynamic-content").getText() )
+                    #end
+                    #if( "Text2541" == $dynamicElement.attributeValue("name") )
+                        #set( $html = $dynamicElement.element("dynamic-content").getText() )
+                    #end
+                    #if("HTML3530" == $dynamicElement.attributeValue("name") )
+                        #set( $text = $dynamicElement.element("dynamic-content").getText() )
+                    #end
+                    
+                #end
+            #set( $viewURL2 = $renderer.getURLViewInContext($renderRequest, $renderResponse, $viewURL)) 
+                      #set($classActive= "")
+            #if($i==1) 
+                #set($classActive= " active")
+            #end 
+<li role="presentation" class="$classActive"><a href="#tab$i" aria-controls="tab$i" role="tab" data-toggle="tab">$curEntry.getTitle($locale)<i></i></a></li>
+     
+                 
+         #end
+     #end
+ #end
+ </ul>
+  <div class="tab-content">
+  
+#if (!$entries.isEmpty())
+   ##iterate assetentry from list
+    #set($i =0 )
+
+      #foreach ($curEntry in $entries)
+          #set($i=$i+1)
+          #set($renderer = $curEntry.getAssetRenderer() )
+          #set($className = $renderer.getClassName() )
+
+          ##for filter of journal article only
+          #if( $className == "com.liferay.portlet.journal.model.JournalArticle" )
+         
+             ##Create URL for link
+             #set($viewURL = $assetPublisherHelper.getAssetViewURL($renderRequest, $renderResponse, $curEntry))
+             #set( $Article = $renderer.getArticle() )
+             
+            #set( $document = $saxReaderUtil.read($Article.getContent()) )
+                    
+                #set( $rootElement = $document.getRootElement() ) 
+                #foreach( $dynamicElement in $rootElement.elements() )
+                    #if( "Image2791" == $dynamicElement.attributeValue("name") )
+                        #set( $image = $dynamicElement.element("dynamic-content").getText() )
+                    #end
+                    #if( "Text2541" == $dynamicElement.attributeValue("name") )
+                        #set( $html = $dynamicElement.element("dynamic-content").getText() )
+                    #end
+                    #if("HTML3530" == $dynamicElement.attributeValue("name") )
+                        #set( $text = $dynamicElement.element("dynamic-content").getText() )
+                    #end
+                    
+                #end
+            #set( $viewURL2 = $renderer.getURLViewInContext($renderRequest, $renderResponse, $viewURL)) 
+            #set($classActive= "")
+            #if($i==1) 
+                #set($classActive= " active")
+            #end
+                <div role="tabpanel" class="tab-pane fade in $classActive" id="tab$i"><div class="announce_img col-md-2">
+                <div class="announce_text col-md-10">
+                $text
+                <p>$html</p>
+                </div>
+                <div class="clearfix"></div>
+           
+           
+                </div>       
+            </div>
+         #end
+     #end
+     
+ #end
+ 
+         </div>
+           
+</div>
